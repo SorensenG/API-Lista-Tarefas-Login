@@ -1,0 +1,136 @@
+src/
+│
+├── config/
+│   └── env.ts               # Variáveis de ambiente, como secret do JWT.
+│
+├── core/
+│   └── entities/           # Modelos das entidades.
+│       ├── task.ts
+│       └── user.ts
+│
+├── database/
+│   └── inMemoryDatabase.ts # Simulação de banco de dados em memória.
+│
+├── repositories/           # Acesso a dados (respeitando SRP).
+│   ├── taskRepository.ts
+│   └── userRepository.ts
+│
+├── useCases/               # Casos de uso (Application layer).
+│   ├── auth/
+│   │   ├── loginUseCase.ts
+│   │   └── registerUseCase.ts
+│   └── task/
+│       ├── createTaskUseCase.ts
+│       ├── listTasksUseCase.ts
+│       ├── updateTaskUseCase.ts
+│       └── deleteTaskUseCase.ts
+│
+├── controllers/            # Camada de controladores.
+│   ├── auth/
+│   │   ├── loginController.ts
+│   │   └── registerController.ts
+│   └── task/
+│       ├── createTaskController.ts
+│       ├── listTasksController.ts
+│       ├── updateTaskController.ts
+│       └── deleteTaskController.ts
+│
+├── factories/              # Ponto de junção (repo + useCase + controller).
+│   ├── makeLoginController.ts
+│   ├── makeRegisterController.ts
+│   ├── makeCreateTaskController.ts
+│   ├── makeListTasksController.ts
+│   ├── makeUpdateTaskController.ts
+│   └── makeDeleteTaskController.ts
+│
+├── middlewares/            # Middlewares, como autenticação JWT.
+│   └── authMiddleware.ts
+│
+├── routes/                 # Definição das rotas.
+│   ├── authRoutes.ts
+│   └── taskRoutes.ts
+│
+├── app.ts                  # Configuração principal do Express.
+└── server.ts               # Inicialização do servidor.
+
+
+
+✅ Ordem de Criação Recomendada
+1. Modelos (Entities)
+User (id, name, email, passwordHash).
+
+Task (id, userId, title, description, status, createdAt).
+
+Por quê? — Define a estrutura dos dados que será usada em todo o sistema.
+
+2. Banco de dados em memória
+inMemoryDatabase.ts: dois arrays para armazenar users e tasks.
+
+3. Repositories
+userRepository.ts: funções para criar e buscar usuários.
+
+taskRepository.ts: funções para CRUD das tarefas.
+
+Por quê? — Abstrai a persistência de dados, respeitando o princípio de responsabilidade única (SRP).
+
+4. Casos de uso (Use Cases)
+Autenticação: loginUseCase.ts e registerUseCase.ts.
+
+Tarefas: createTaskUseCase.ts, listTasksUseCase.ts, updateTaskUseCase.ts e deleteTaskUseCase.ts.
+
+Por quê? — Toda a regra de negócio deve estar aqui, isolada do resto do sistema (Open/Closed Principle - OCP).
+
+5. Controllers
+Controladores que recebem a request e passam para o UseCase.
+
+Exemplo:
+
+LoginController → chama loginUseCase.
+
+CreateTaskController → chama createTaskUseCase.
+
+Por quê? — São os pontos de entrada HTTP, responsáveis apenas por orquestrar requisições e respostas.
+
+6. Factories
+Ex.: makeLoginController.ts: monta a cadeia → repo → useCase → controller.
+
+Por quê? — Facilita o acoplamento correto, seguindo o princípio da Inversão de Dependências (DIP).
+
+7. Middlewares
+authMiddleware.ts: valida o token JWT.
+
+Por quê? — Garante segurança e autorização conforme os requisitos não funcionais.
+
+8. Rotas
+authRoutes.ts → /auth/login, /auth/register.
+
+taskRoutes.ts → /tasks com GET, POST, PUT, DELETE.
+
+Por quê? — Centraliza as definições das rotas seguindo RESTful.
+
+9. Configuração
+app.ts → configuração do Express.
+
+server.ts → inicializa o servidor.
+
+✅ Tecnologias
+Node.js (runtime).
+
+TypeScript.
+
+Express.js.
+
+jsonwebtoken.
+
+bcryptjs.
+
+uuid.
+
+✅ Boas práticas
+SOLID: Separação clara de responsabilidades.
+
+Padrão MVC.
+
+Factories para compor as dependências.
+
+Testes podem ser adicionados depois com Jest.
