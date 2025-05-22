@@ -34,7 +34,6 @@ export class Database {
         return listfiltred;
     }
 
-
     public createUser(user: User) {
         this.Userlist.push(user)
         console.log(this.Userlist);
@@ -43,6 +42,10 @@ export class Database {
     public deleteUser(userid: number) {
         this.Userlist = this.Userlist.filter((user) => user.getId() != userid)
     }
+
+
+
+
 }
 
 

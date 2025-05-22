@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { CreatTaskUseCase } from "../use-cases/creat-task.use-case";
+import { CreatTaskUseCase } from "../use-cases/create-task.use-case";
 
 export class CreatTaskController{
     constructor(private usecase: CreatTaskUseCase){}

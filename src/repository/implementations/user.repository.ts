@@ -1,5 +1,5 @@
 import { User } from "../../entities/user";
-import { IUserRepository } from "../user-repository.interface copy";
+import { IUserRepository } from "../user-repository.interface";
 import { Database } from "./in-memory-database";
 
 
