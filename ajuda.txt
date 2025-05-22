@@ -63,17 +63,17 @@ Task (id, userId, title, description, status, createdAt).
 
 Por quê? — Define a estrutura dos dados que será usada em todo o sistema.
 
-2. Banco de dados em memória
+✅2. Banco de dados em memória
 inMemoryDatabase.ts: dois arrays para armazenar users e tasks.
 
-3. Repositories
+✅3. Repositories
 userRepository.ts: funções para criar e buscar usuários.
 
 taskRepository.ts: funções para CRUD das tarefas.
 
 Por quê? — Abstrai a persistência de dados, respeitando o princípio de responsabilidade única (SRP).
 
-4. Casos de uso (Use Cases)
+✅4. Casos de uso (Use Cases)
 Autenticação: loginUseCase.ts e registerUseCase.ts.
 
 Tarefas: createTaskUseCase.ts, listTasksUseCase.ts, updateTaskUseCase.ts e deleteTaskUseCase.ts.

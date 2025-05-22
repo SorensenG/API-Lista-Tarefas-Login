@@ -1,34 +1,61 @@
-import type { User } from "../../enetities/user";
-import { Task } from "../../enetities/task";
+import { User } from "../../entities/user";
+import { Task } from "../../entities/task";
 
-export class Database{
+export class Database {
+    private static instance: Database;//singleton
 
-    private Userlist : User[];
-    private Tasklist : Task[];
+    private Userlist: User[];
+    private Tasklist: Task[];
 
-    constructor(){
+    private constructor() {
         this.Tasklist = [];
         this.Userlist = [];
     }
-      public createTask(task : Task){
+
+    public static getInstance(): Database { //:Database deixa claro o tipo de retorno 
+        if (!Database.instance) {
+            Database.instance = new Database();
+        }
+        return Database.instance;
+    }
+
+    public createTask(task: Task) {
         this.Tasklist.push(task);
         console.log(this.Tasklist);
-      }      
+    }
 
-    public deleteTask(taskID : number){
-      this.Tasklist = this.Tasklist.filter((task) => task.getId() != taskID) 
-      }            
-
-
-    public getAllTasks(userID: number){
-          this.Tasklist = this.Tasklist.filter((task) => task.getUserID() != userID) 
+    public deleteTask(taskID: number) {
+        this.Tasklist = this.Tasklist.filter((task) => task.getId() != taskID)
     }
 
 
-    public creatUser(user: User){
+    public getAllTasks(userID: number) {
+        const listfiltred = this.Tasklist.filter((task) => task.getUserID() === userID)
+        return listfiltred;
+    }
+
+
+    public createUser(user: User) {
         this.Userlist.push(user)
         console.log(this.Userlist);
+    }
+
+    public deleteUser(userid: number) {
+        this.Userlist = this.Userlist.filter((user) => user.getId() != userid)
     }
 }
 
 
+//testes 
+//const db = Database.getInstance();
+// Criar user
+//db.createUser(new User(1, "Gabriel", "gabriel@email.com", "123456"));
+
+// Criar task
+//db.createTask(new Task(1, "Estudar Node", "Aprofundar conceitos", "pendente", new Date().toISOString()));
+
+// Criar task
+//db.createTask(new Task(2, "Estudar type", "Aprofundar conceitos", "completa", new Date().toISOString()));
+
+// Listar tasks do usuário
+//console.log(db.getAllTasks(3));
