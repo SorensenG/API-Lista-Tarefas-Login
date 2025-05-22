@@ -7,17 +7,15 @@ export class DeletTaskController{
     async handle (request: Request, response: Response){
 
 
-        const data = request.body
+       const { id } = request.params;
 
+       const taskID= Number(id)
 
-        await this.usecase.execute(data)
+        await this.usecase.execute(taskID)
 
             response.status(200).json({
-                message : "Tarefa criada com sucesso"
+                message : "Tarefa deletada com sucesso"
             })
     }
-
-    
-
 
 }

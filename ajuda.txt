@@ -80,7 +80,7 @@ Tarefas: createTaskUseCase.ts, listTasksUseCase.ts, updateTaskUseCase.ts e delet
 
 Por quê? — Toda a regra de negócio deve estar aqui, isolada do resto do sistema (Open/Closed Principle - OCP).
 
-5. Controllers
+✅5. Controllers
 Controladores que recebem a request e passam para o UseCase.
 
 Exemplo:
