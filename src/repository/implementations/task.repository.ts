@@ -17,9 +17,12 @@ export class TaskRepository implements ITaskRepository {
         this.db.deleteTask(taskId);
     }
     async getAll(userID: number): Promise<Array<Task>> {
-        return this.db.getAllTasks(userID)
+        return this.db.getAllTasks(userID);
     }
    
+    async update(task: Task, taskID: number): Promise<void> {
+        this.db.uptdateTask(task, taskID);
+    }
 
 
 }

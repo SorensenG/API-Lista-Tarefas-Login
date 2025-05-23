@@ -6,15 +6,21 @@ export class CreatUserController {
 
     async handle(request: Request, response: Response) {
 
+        try {
+            const data = request.body
 
-        const data = request.body
 
+            await this.usecase.execute(data)
 
-        await this.usecase.execute(data)
+            response.status(201).json({
+                message: "usuario criado com sucesso"
+            })
+        } catch (error) {
+            response.status(400).json({
+                message: error.message
+            })
+        }
 
-        response.status(201).json({
-            message: "usuario criado com sucesso"
-        })
     }
 
 

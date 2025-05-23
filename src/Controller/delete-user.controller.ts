@@ -5,18 +5,22 @@ export class DeleteUserController {
     constructor(private usecase: DeleteUserUseCase) { }
 
     async handle(request: Request, response: Response) {
+        try {
+            const { id } = request.params;
 
-        const { id } = request.params;
+            const userID = Number(id);
 
-        const userID = Number(id);
+            await this.usecase.execute(userID);
 
-        await this.usecase.execute(userID);
+            response.status(200).json({
+                message: "Usuario deletada com sucesso"
+            })
+        } catch (error) {
+            response.status(500).json({
+                message: "Erro ao deletar usuario",
+                error: error.message
+            })
 
-        response.status(200).json({
-            message: "Usuario deletada com sucesso"
-        })
-
-
+        }
     }
-
 }

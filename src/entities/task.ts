@@ -20,6 +20,11 @@ export class Task {
     public getId(){
         return this.id;
     }
+
+    public setId(id:number){
+        this.id = id;
+    }
+
     public getUserID(){
         return this.userId;
     }

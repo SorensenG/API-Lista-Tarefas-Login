@@ -24,6 +24,15 @@ export class Database {
         console.log(this.Tasklist);
     }
 
+    public uptdateTask(task: Task, taskID: number) {
+
+       this.Tasklist = this.Tasklist.filter((task) => task.getId() != taskID) // remove a tarefa antes das alteraçoes da lista 
+        task.setId(taskID); //seta o mesmo id para a task atualizada
+        this.Tasklist.push(task);  
+        console.log(this.Tasklist);
+        
+    }
+
     public deleteTask(taskID: number) {
         this.Tasklist = this.Tasklist.filter((task) => task.getId() != taskID)
     }
@@ -49,7 +58,7 @@ export class Database {
 }
 
 
-//testes 
+//testes
 //const db = Database.getInstance();
 // Criar user
 //db.createUser(new User(1, "Gabriel", "gabriel@email.com", "123456"));

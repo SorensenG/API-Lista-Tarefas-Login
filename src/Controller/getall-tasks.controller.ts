@@ -5,20 +5,24 @@ export class GetAllTasksController {
     constructor(private usecase: GetAllTaskUseCase) { }
 
     async handle(request: Request, response: Response) {
+        try {
+            const { id } = request.params;
 
-        const { id } = request.params;
+            const userID = Number(id);
 
-        const userID = Number(id);
+            const tasks = await this.usecase.execute(userID);
 
-        const tasks = await this.usecase.execute(userID);
+            response.status(200).json({
+                message: "Tarefas listadas com sucesso",
+                data: tasks
 
-        response.status(200).json({
-            message: "Tarefas listadas com sucesso",
-            data: tasks
+            })
+        } catch (error) {
+            response.status(500).json({
+                message: "Erro ao listar tarefas",
+                error: error.message
+            })
 
-        })
-
-
+        }
     }
-
 }
