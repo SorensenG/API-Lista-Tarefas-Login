@@ -52,6 +52,9 @@ export class Database {
         this.Userlist = this.Userlist.filter((user) => user.getId() != userid)
     }
 
+    public getAllUsers() {
+        return this.Userlist;
+    }
 
 
 

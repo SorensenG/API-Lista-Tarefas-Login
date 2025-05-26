@@ -12,7 +12,4 @@ const newTask = new Task(userId, title,description,status,createdAt);
 
 }
 
-
-
-
 }
