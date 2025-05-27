@@ -53,11 +53,3 @@ src/
 ├── app.ts                  # Configuração principal do Express.
 └── server.ts               # Inicialização do servidor.
 
-
-
-✅ Resumo do que falta:
-Faltando	O que fazer
-✅ Rotas	Criar auth.routes.ts, task.routes.ts
-✅ Integração	Criar app.ts ou server.ts
-✅ Ajuste de controllers	Pegar req.userId nas rotas protegidas
-✅ Testar tudo	Com Postman ou Insomnia:
