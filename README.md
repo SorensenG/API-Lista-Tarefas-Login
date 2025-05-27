@@ -28,23 +28,6 @@ Uma API RESTful desenvolvida em **Node.js**, utilizando **TypeScript** e **Expre
 
 ---
 
-🛠️ Estrutura do Projeto
-perl
-Copiar
-Editar
-src/
-├── config/                  # Configurações (JWT)
-├── controllers/            # Controladores
-├── entities/               # Entidades (User, Task)
-├── middlewares/            # Middlewares (auth)
-├── repositories/           # Interfaces e Implementações
-├── routes/                 # Definição das rotas
-├── use-cases/              # Casos de uso
-├── factories/              # Factories para Controllers
-├── app.ts                  # Configuração do Express
-└── server.ts               # Inicialização do servidor
----
-
 ## 📦 Instalação e Execução
 
 ```bash
