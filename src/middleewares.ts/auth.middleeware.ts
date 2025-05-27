@@ -37,3 +37,10 @@ export function ensureAuthenticated(
         return; 
     }
 }
+
+declare module "express-serve-static-core" {
+    interface Request {
+        userId?: string;
+    }
+}
+

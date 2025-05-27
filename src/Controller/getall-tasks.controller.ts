@@ -8,7 +8,7 @@ export class GetAllTasksController {
         try {
             const { id } = request.params;
 
-            const userID = Number(id);
+              const userID = Number(request.userId);  // ✅ Correção → pega do request.userId
 
             const tasks = await this.usecase.execute(userID);
 

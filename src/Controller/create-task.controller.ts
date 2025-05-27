@@ -8,11 +8,17 @@ export class CreatTaskController {
 
         try {
 
-            const data = request.body
+           const { title, description, status, createdAt } = request.body;
 
+            const userId = Number(request.userId);  // ✅ Pega do middleware
 
-            await this.usecase.execute(data)
-
+            await this.usecase.execute({
+                userId,  // ✅ passa para o usecase
+                title,
+                description,
+                status,
+                createdAt
+            });
             response.status(201).json({
                 message: "Tarefa criada com sucesso"
             })

@@ -5,19 +5,20 @@ export class UptdateTaskController {
     constructor(private usecase: UptdateTaskUseCase) { }
 
     async handle(request: Request, response: Response) {
-
-        const { id } = request.params; //pega o id da tsk pela URL
+        const { id } = request.params;  // pega o id da task pela URL
         const taskId = Number(id);
 
-        const { userId, title, description, status, createdAt } = request.body; // a requisiçao vai enviar um json com os dados da task nova 
+        const { title, description, status, createdAt } = request.body;
 
+        const userId = Number(request.userId);  // ✅ pega do req, não do body
 
-        await this.usecase.excute({ userId, title, description, status, createdAt },
-            taskId);
+        await this.usecase.excute(
+            { userId, title, description, status, createdAt },
+            taskId
+        );
 
         response.status(200).json({
             message: "Tarefa atualizada com sucesso"
-        })
-
+        });
     }
 }
