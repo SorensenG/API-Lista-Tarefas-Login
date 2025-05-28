@@ -1,8 +1,7 @@
-import { User } from "../entities/user";
-
+import { User } from '@prisma/client';
 export interface IUserRepository {
-    save(user : User): Promise<void>;
-    delet(userId : number): Promise<void>
+    save(user: { name: string; email: string; password: string }): Promise<User>;
+    findByEmail(email: string): Promise<User | null>;
     getAll(): Promise<User[]>;
 
 }

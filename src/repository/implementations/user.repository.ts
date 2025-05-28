@@ -1,26 +1,26 @@
-import { User } from "../../entities/user";
-import { IUserRepository } from "../user-repository.interface";
-import { Database } from "./in-memory-database";
+import { PrismaClient, User } from '@prisma/client';
+import { IUserRepository } from '../user-repository.interface';
 
+const prisma = new PrismaClient();
 
 export class UserRepository implements IUserRepository {
+  async save(user: { name: string; email: string; password: string }): Promise<User> {
+    return await prisma.user.create({
+      data: {
+        name: user.name,
+        email: user.email,
+        password: user.password
+      }
+    });
+  }
 
-    private db: Database;
+  async findByEmail(email: string): Promise<User | null> {
+    return await prisma.user.findUnique({
+      where: { email }
+    });
+  }
 
-     constructor(dbInstance: Database) {
-        this.db = dbInstance;
-    }
-    async delet(userId: number): Promise<void> {
-        this.db.deleteUser(userId);
-    }
-
-    async save(user: User): Promise<void> {
-        console.log("vou salvar o usuario")
-        this.db.createUser(user)
-    }
-
-    async getAll(): Promise<User[]> {
-        return this.db.getAllUsers();
-    }
-
+  async getAll(): Promise<User[]> {
+    return await prisma.user.findMany();
+  }
 }

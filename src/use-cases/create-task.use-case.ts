@@ -1,4 +1,4 @@
-import { Task } from "../entities/task";
+import { PrismaClient, Task } from '@prisma/client';
 import { ITaskRepository } from "../repository/task-repository.interface";
 
 export class CreatTaskUseCase{
@@ -6,8 +6,8 @@ export class CreatTaskUseCase{
     constructor(private repo : ITaskRepository){}
 
     async execute({userId, title,description,status,createdAt}:{userId: number, title: string,description: string,status: string,createdAt: string}){
-        const task = new Task(userId, title,description,status,createdAt);
-        await this.repo.save(task);
+        await this.repo.save({ userId, title, description, status, createdAt });
+
 
     }
 

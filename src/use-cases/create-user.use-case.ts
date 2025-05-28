@@ -1,4 +1,4 @@
-import { User } from "../entities/user";
+import { PrismaClient, User } from '@prisma/client';
 import { IUserRepository } from "../repository/user-repository.interface";
 import bcrypt from "bcryptjs";
 
@@ -9,8 +9,6 @@ export class CreatUserUseCase {
         // ✅ Hashear a senha ANTES de salvar
         const hashedPassword = await bcrypt.hash(password, 8);
 
-        const user = new User(name, email, hashedPassword);
-
-        await this.repo.save(user);
+        await this.repo.save({ name, email, password: hashedPassword });
     }
 }

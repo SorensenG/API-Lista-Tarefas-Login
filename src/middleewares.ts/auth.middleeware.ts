@@ -4,7 +4,7 @@ import { authConfig } from "../config/auth";
 
 declare module "express-serve-static-core" {
     interface Request {
-        userId?: string;
+        userId?: number;
     }
 }
 
@@ -17,30 +17,22 @@ export function ensureAuthenticated(
     res: Response, 
     next: NextFunction
 ): void { 
-
     const authHeader = req.headers.authorization;
 
     if (!authHeader) {
         res.status(401).json({ error: "Token missing" });
-        return;  
+        return;
     }
 
     const [, token] = authHeader.split(" ");
 
     try {
         const decoded = jwt.verify(token, authConfig.secret) as TokenPayload;
-        req.userId = decoded.sub;
 
-        next();  
+        req.userId = Number(decoded.sub);  // ✅ Converte para number
+
+        next();
     } catch {
         res.status(401).json({ error: "Invalid token" });
-        return; 
     }
 }
-
-declare module "express-serve-static-core" {
-    interface Request {
-        userId?: string;
-    }
-}
-

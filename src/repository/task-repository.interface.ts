@@ -1,8 +1,8 @@
-import { Task } from "../entities/task";
+import { Task } from '@prisma/client';
 
-export interface ITaskRepository{
-    save(task : Task): Promise<void>;
-    delete(taskId: number): Promise<void>;
-    getAll(userID:number): Promise<Task[]>;
-    update(task: Task, taskID: number): Promise <void> ;
+export interface ITaskRepository {
+  save(task: { userId: number; title: string; description: string; status: string; createdAt: string }): Promise<Task>;
+  getAll(userId: number): Promise<Task[]>;
+  delete(taskId: number): Promise<Task>;
+  update(taskId: number, data: { title?: string; description?: string; status?: string }): Promise<Task>;
 }

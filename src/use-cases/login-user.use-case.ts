@@ -4,25 +4,25 @@ import { IUserRepository } from "../repository/user-repository.interface";
 import { authConfig } from "../config/auth";
 
 export class LoginUserUseCase {
-    constructor(private repo: IUserRepository) {}
+  constructor(private repo: IUserRepository) {}
 
-    async execute({ email, password }: { email: string; password: string }) {
-        const users = await this.repo.getAll();
-        const user = users.find(u => u.getEmail() === email);
+  async execute({ email, password }: { email: string; password: string }) {
+    const users = await this.repo.getAll();
+    const user = users.find(u => u.email === email);
 
-        if (!user) throw new Error("User not found");
+    if (!user) throw new Error("User not found");
 
-        const passwordMatch = await bcrypt.compare(password, user.getPassword());
+    const passwordMatch = await bcrypt.compare(password, user.password);
 
-        if (!passwordMatch) throw new Error("Incorrect password");
+    if (!passwordMatch) throw new Error("Incorrect password");
 
-        const options: SignOptions = {
-            subject: String(user.getId()),
-            expiresIn: authConfig.expiresIn
-        };
+    const options: SignOptions = {
+      subject: String(user.id),
+      expiresIn: authConfig.expiresIn
+    };
 
-        const token = jwt.sign({}, authConfig.secret, options);
+    const token = jwt.sign({}, authConfig.secret, options);
 
-        return token;
-    }
+    return token;
+  }
 }

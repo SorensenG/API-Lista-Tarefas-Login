@@ -10,10 +10,8 @@ export class UptdateTaskController {
 
         const { title, description, status, createdAt } = request.body;
 
-        const userId = Number(request.userId);  // ✅ pega do req, não do body
-
-        await this.usecase.excute(
-            { userId, title, description, status, createdAt },
+        await this.usecase.execute(
+            { title, description, status },
             taskId
         );
 
